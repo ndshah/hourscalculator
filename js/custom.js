@@ -10,27 +10,25 @@ $('#addmore').click(function(){
     $('.onerow:last').find('.labelclass').attr('id', newlabelid);
     $('.onerow:last').find('.numberclass').attr('id', newvalid);
 })
-let sum = 0;
+var sum = 0;
+var total = 0;
+setTotalVal = function(){    
+    sum = 0;
     $('.numberclass').each(function () {
         var counter = $(this).val();        
         sum += parseInt(counter);
-      });
-      $('#pendingcount').text(sum);
-$('input').blur(function(){
-    $('.numberclass').val();
-    var sum = 0;
-    $('.numberclass').each(function () {
-        var counter = $(this).val();        
-        sum += parseInt(counter);
-      });
-      let total = $('#totalcount').text();      
-      total = parseInt(total);      
-      let remain = total - sum;
-      $('#pendingcount').text(remain);      
-      if(sum>total){
+    });
+    total = $('#totalcount').text();      
+    total = parseInt(total);          
+    let remain = total - sum;
+    $('#pendingcount').text(remain);
+};
+setTotalVal();
+$('input').on('blur, change',function(){    
+    setTotalVal();     
+    if(sum>total){
         $('#pendingcount').css('color', 'red');
-      } else{
+    } else{
         $('#pendingcount').css('color', '#212529');
-      }
-      
+    } 
 })
